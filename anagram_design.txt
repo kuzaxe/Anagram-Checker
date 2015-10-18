@@ -1,0 +1,35 @@
+
+
+AnagramSolver is initialized with one parameter, the list of words. Within the constructor, self._letterManager creates a LetterManager object for each word in the dictionary provided for faster processing further on. Along with that being the most important fact about the constructor, four other arguments are initialized. 
+
+After the user calls generateAnagrams giving it the required parameters, a phrase and max value, this method begins by resetting self._answer value just incase the user does not change variables after already performing an action before. Ex:
+
+x = AnagramSolver(dict)
+x.generateAnagrams('apples', 3)
+x.generateAnagrams('bananas', 0)     <-- in this case, the _answers are reset for new batch of anagrams. 
+
+Following that, the method checks if max value provided is valid. If not, a ValueError() is raised as it is the most appropriate for when the type is correct but it is unacceptable. If max is valid and 0, then max is set as the length of the phrase provided because an anagram will never be greater in length than its original phrase. 
+Otherwise, max is set as the value given (which would be greater than 0).
+
+Next, the phrase provided by the user is converted into a Letter Manager object and a helper function is used to find all possible anagrams bits and pieces that can be used to create an anagram for the phrase. This helps speed up the process... by A LOT. 
+
+The for loop goes over all the possible anagram bits found in the last section and tries connecting them with other anagrams through the recursive step. 'Remains' resets its value because this variable helps keep track of how many letters are left over after every recursive call (explained below in recursive section). Then result holds the recursive call. If the result is a string, then it is appended into the answers because this means that the answer is equal to the word given. Otherwise if result is a list, then the length of each item inside it is checked to see if it's valid from 'max's perspective and respectively added to the final list. 
+
+Now, the recursive function. New_word keeps track of the remaining letters subtracted from the given word. If it is empty, then the basecase returns the word provided because it's reached its minimum value. Otherwise, the recurisve function begins. 
+
+--- I do not have time to finish the updated version for my anagram program. I have personal issues to deal with at the moment. The text below is the remaining from what I had previously written for my older versions of anagram.py. -- I apologize for the inconvenience. I made these decisions on the program they way they are because I found it simple. I was not able to make it faster but it's not that bad though! 
+
+If there are no letters remaining for when the recursive function is only called once (base = 0) in the given parameter 'new_letters' (which was the words in the for loop subtracted from the user given phrase), then it adds the phrase to the answer key. Else if there are no remaining letters but its not the base call, then it stores the anagram part in the result and returns it to the previous recursive call. 
+
+Now for the recursive step. 
+First, test stores a smaller dictionary only revelant to the given phrase so it saves time. If the length of test is 0 meaning that there were no anagram bits/parts found for the given phrase, a symbol '*' is stored in result to indicate, take a step back and move onto the next word. 
+
+If there are anagram bits/parts found, then for each one of them, they are subtracted from the given phrase. If the resultant is not None meaning that the subtration was valid, then the recursive function is called again with the smaller phrase. Going through the various recursive steps, the phrase would either reach a dead end with no anagrams or come back with a list of solutions which are appended to result. 
+
+At this moment, if the length of result is nil, meaning no anagrams are found, then next word in the for loop (within the recursive function) begins... On the other hand, if the length of result is not 0, then for each list inside result, the word taken from the beginning Anagram Solver for loop is added to it (if it meets 'max' requirements). Then its added to the master list and the process repeats itself. 
+
+
+----------------------------------------------------
+I decided to follow this route because when I drew out the process on paper, this is how it looked. I approached numerous other styles, however, I was not able to find the process that my classmates could that finishes faster or may have been smaller, etc. Overall, the MAIN reason I chose to do this process is because it seemed logical and straight forward from the start. To be honest, it feels like I made a few errors in the sections right after the recursive call in the 'recursive' function. Other than that, I was lost and tired.
+
+This concludes the outline to my design decisions. 
